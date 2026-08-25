@@ -17,7 +17,7 @@ Thank you for helping keep this namespace repository accurate and modest.
 Run the complete gate from the repository root:
 
 ```bash
-CARGO_TARGET_DIR=/mnt/backup/build-cache/openbimrl ./scripts/gate.sh
+./scripts/gate.sh
 ```
 
 The command must exit successfully. Update README, rustdoc, architecture, and

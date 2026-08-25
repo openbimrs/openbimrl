@@ -5,8 +5,7 @@ standalone reservation repository, not an implementation repository.
 
 ## Verification
 
-Run `./scripts/gate.sh`; trust process exit codes. For shared storage, set
-`CARGO_TARGET_DIR=/mnt/backup/build-cache/openbimrl`.
+Run `./scripts/gate.sh`; trust process exit codes.
 
 ## Conventions
 

@@ -16,7 +16,7 @@ any standards body or organization.
 ## Required commands
 
 ```bash
-CARGO_TARGET_DIR=/mnt/backup/build-cache/openbimrl ./scripts/gate.sh
+./scripts/gate.sh
 cargo package -p openbim-openbimrl
 cargo package --list -p openbimrl
 ```
