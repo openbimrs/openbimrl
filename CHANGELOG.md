@@ -15,7 +15,7 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   alias-purity gates.
 - Documented that no authoritative specification, implementation capability,
   standards-body affiliation, or publication is claimed by this repository
-  candidate.
+  namespace.
 
 [0.1.0]: https://crates.io/crates/openbim-openbimrl/0.1.0
 [canonical-crate]: https://crates.io/crates/openbim-openbimrl/0.1.0

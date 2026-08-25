@@ -2,7 +2,7 @@
 
 ## Repository role
 
-`openbimrs/openbimrl` is a standalone repository candidate for reserving two
+`openbimrs/openbimrl` is a standalone repository for reserving two
 OpenBIM.rs Rust package names. The string openBIMRL is treated as a namespace
 label only. No authoritative specification was established, no standards-body
 or organizational affiliation is asserted, and no implementation capability
@@ -52,7 +52,7 @@ The release order, if separately authorized, is:
 2. wait for crates.io indexing;
 3. verify and publish the exact-version `openbimrl` alias.
 
-The current repository does not perform either publication. Before the
+Repository CI does not perform either publication. Before the
 canonical artifact exists, the gate runs full `cargo package` verification only
 for the canonical package and `cargo package --list` for the alias.
 
