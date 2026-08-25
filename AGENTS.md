@@ -18,12 +18,11 @@ any standards body or organization.
 ```bash
 ./scripts/gate.sh
 cargo package -p openbim-openbimrl
-cargo package --list -p openbimrl
+cargo package -p openbimrl
 ```
 
-Do not run full alias package verification or publication until
-`openbim-openbimrl = 0.1.0` exists in the registry. Never push or publish unless
-that action is separately and explicitly authorized.
+The canonical package must be released before its exact-version alias. Never
+push or publish unless that action is separately and explicitly authorized.
 
 ## Boundaries
 

@@ -52,9 +52,8 @@ The release order, if separately authorized, is:
 2. wait for crates.io indexing;
 3. verify and publish the exact-version `openbimrl` alias.
 
-Repository CI does not perform either publication. Before the
-canonical artifact exists, the gate runs full `cargo package` verification only
-for the canonical package and `cargo package --list` for the alias.
+Repository CI does not perform publication. The steady-state gate fully packages
+and verifies both crates.
 
 ## Artifact policy
 

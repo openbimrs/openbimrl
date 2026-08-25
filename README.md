@@ -72,9 +72,7 @@ cd openbimrl
 ```
 
 The gate verifies formatting, check/build/test, Clippy, rustdoc, semantic alias
-purity, the canonical package, and the alias file list. Alias package
-verification is intentionally limited to `cargo package --list` until the exact
-canonical version exists on crates.io.
+purity, mutation probes, and complete package archives for both crates.
 
 ## Contributing and license
 
