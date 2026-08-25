@@ -1,0 +1,17 @@
+[package]
+name = "openbim-openbimrl"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT"
+authors = ["point-grey"]
+repository = "https://github.com/openbimrs/openbimrl"
+homepage = "https://github.com/openbimrs/openbimrl"
+documentation = "https://docs.rs/openbim-openbimrl"
+readme = "README.md"
+description = "Reserved OpenBIM.rs namespace for possible future openBIMRL work."
+keywords = ["bim", "openbim", "aec", "namespace", "reserved"]
+categories = ["development-tools"]
+publish = true
+
+[dependencies]

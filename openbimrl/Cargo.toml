@@ -1,0 +1,19 @@
+[package]
+name = "openbimrl"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT"
+authors = ["point-grey"]
+repository = "https://github.com/openbimrs/openbimrl"
+homepage = "https://github.com/openbimrs/openbimrl"
+documentation = "https://docs.rs/openbimrl"
+readme = "README.md"
+description = "Reserved alias for the OpenBIM.rs openBIMRL namespace package."
+keywords = ["bim", "openbim", "aec", "namespace", "reserved"]
+categories = ["development-tools"]
+publish = true
+
+[dependencies]
+# The exact pin keeps the alias synchronized with the canonical package.
+openbim-openbimrl = { path = "../openbim-openbimrl", version = "=0.1.0" }
