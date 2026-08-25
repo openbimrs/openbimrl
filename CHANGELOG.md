@@ -11,10 +11,11 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Reserved the canonical [`openbim-openbimrl`][canonical-crate] package
   architecture with an explicit status constant.
 - Added the exact-version, pure re-export `openbimrl` alias package.
-- Added standalone CI, packaging, documentation, and alias-purity gates.
+- Added standalone CI, packaging, documentation, and mutation-verified
+  alias-purity gates.
 - Documented that no authoritative specification, implementation capability,
   standards-body affiliation, or publication is claimed by this repository
   candidate.
 
-[0.1.0]: https://github.com/openbimrs/openbimrl/releases/tag/v0.1.0
+[0.1.0]: https://crates.io/crates/openbim-openbimrl/0.1.0
 [canonical-crate]: https://crates.io/crates/openbim-openbimrl/0.1.0
