@@ -5,14 +5,14 @@ Exact-version pure re-export alias for
 
 ## Status
 
-This package is part of a local **RESERVED OpenBIM.rs namespace candidate** and
-has not been published by this repository state. It adds no API or capability.
+This package is a **RESERVED OpenBIM.rs namespace alias**. It adds no API or
+capability.
 The canonical package provides only a status constant and establishes no
 parser, language, schema, validation, conformance, or standards-body claim.
 
 ## Usage
 
-After both packages are published in canonical-then-alias order:
+Install the short alias:
 
 ```bash
 cargo add openbimrl@0.1.0

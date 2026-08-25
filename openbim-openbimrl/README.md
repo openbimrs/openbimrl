@@ -20,7 +20,7 @@ pure re-export alias and owns no independent API.
 
 ## Usage
 
-After publication:
+Install the canonical package:
 
 ```bash
 cargo add openbim-openbimrl@0.1.0
