@@ -1,114 +1,179 @@
 #!/usr/bin/env python3
-"""Fail closed unless `openbimrl` is a pure alias of `openbim-openbimrl`."""
+"""Fail closed unless openbimrl is a pure Cargo alias of openbim-openbimrl."""
 
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, NoReturn
+from typing import NoReturn
 
 ROOT = Path(__file__).resolve().parent.parent
-CANONICAL_NAME = "openbim-openbimrl"
-ALIAS_NAME = "openbimrl"
+ALIAS_PACKAGE = "openbimrl"
+CANONICAL_PACKAGE = "openbim-openbimrl"
+CANONICAL_CRATE = "openbim_openbimrl"
+VERSION = "0.1.0"
 
 
 def fail(message: str) -> NoReturn:
-    print(f"alias purity: {message}", file=sys.stderr)
+    print(f"alias purity error: {message}", file=sys.stderr)
     raise SystemExit(1)
 
 
-def one_package(packages: list[dict[str, Any]], name: str) -> dict[str, Any]:
-    matches = [package for package in packages if package["name"] == name]
+def normalize(path: str | Path) -> Path:
+    return Path(path).resolve()
+
+
+def package(packages: list[dict], name: str) -> dict:
+    matches = [candidate for candidate in packages if candidate["name"] == name]
     if len(matches) != 1:
         fail(f"expected exactly one {name!r} package, found {len(matches)}")
     return matches[0]
 
 
-def normalized(path: str | Path) -> Path:
-    return Path(path).resolve()
+def without_comments(source: str) -> str:
+    output: list[str] = []
+    index = 0
+    block_depth = 0
+    while index < len(source):
+        pair = source[index:index + 2]
+        if block_depth:
+            if pair == "/*":
+                block_depth += 1
+                index += 2
+            elif pair == "*/":
+                block_depth -= 1
+                index += 2
+            else:
+                index += 1
+            continue
+        if pair == "//":
+            newline = source.find("\n", index + 2)
+            if newline == -1:
+                break
+            output.append("\n")
+            index = newline + 1
+        elif pair == "/*":
+            block_depth = 1
+            index += 2
+        elif pair == "*/":
+            fail("unmatched block-comment terminator")
+        else:
+            output.append(source[index])
+            index += 1
+    if block_depth:
+        fail("unterminated block comment")
+    return "".join(output)
 
 
-result = subprocess.run(
-    ["cargo", "metadata", "--no-deps", "--format-version", "1"],
+def rust_tokens(source: str) -> list[str]:
+    pattern = re.compile(r"\s+|::|[A-Za-z_][A-Za-z0-9_]*|[*!;]")
+    tokens: list[str] = []
+    position = 0
+    while position < len(source):
+        match = pattern.match(source, position)
+        if match is None:
+            fail(f"unexpected alias source near {source[position:position + 20]!r}")
+        token = match.group(0)
+        if not token.isspace():
+            tokens.append(token)
+        position = match.end()
+    return tokens
+
+
+metadata = json.loads(subprocess.run(
+    ["cargo", "metadata", "--locked", "--no-deps", "--format-version", "1"],
     cwd=ROOT,
     check=True,
     capture_output=True,
     text=True,
-)
-metadata: dict[str, Any] = json.loads(result.stdout)
-packages: list[dict[str, Any]] = metadata["packages"]
-workspace_names = {
-    package["name"]
-    for package in packages
-    if package["id"] in metadata["workspace_members"]
-}
-expected_names = {CANONICAL_NAME, ALIAS_NAME}
-if workspace_names != expected_names:
-    fail(
-        "workspace packages must be exactly "
-        f"{sorted(expected_names)!r}, got {sorted(workspace_names)!r}"
-    )
+).stdout)
+packages = metadata["packages"]
+package_names = {candidate["name"] for candidate in packages}
+expected_names = {ALIAS_PACKAGE, CANONICAL_PACKAGE}
+if package_names != expected_names:
+    fail(f"workspace package set must be {sorted(expected_names)}, got {sorted(package_names)}")
 
-canonical = one_package(packages, CANONICAL_NAME)
-alias = one_package(packages, ALIAS_NAME)
-canonical_version = canonical["version"]
-if alias["version"] != canonical_version:
-    fail(
-        f"package versions differ: {ALIAS_NAME}={alias['version']}, "
-        f"{CANONICAL_NAME}={canonical_version}"
-    )
-
-expected_manifest = normalized(ROOT / "openbimrl/Cargo.toml")
-if normalized(alias["manifest_path"]) != expected_manifest:
-    fail(f"alias manifest must be {expected_manifest}")
+canonical = package(packages, CANONICAL_PACKAGE)
+alias = package(packages, ALIAS_PACKAGE)
+if canonical["version"] != VERSION or alias["version"] != VERSION:
+    fail(f"both package versions must be {VERSION}")
+if alias.get("edition") != "2021":
+    fail("alias package edition must be 2021")
+if alias.get("rust_version") != "1.85":
+    fail("alias package rust-version must be 1.85")
+if alias.get("publish") is not None:
+    fail("alias package must remain publishable to crates.io")
 if alias.get("features"):
-    fail("alias must not define features")
+    fail("alias must not define Cargo features")
 if alias.get("links") is not None:
     fail("alias must not define a native links contract")
+if alias.get("source") is not None:
+    fail("workspace alias must be a local package")
 
-if len(alias["targets"]) != 1:
-    fail("alias must contain exactly one Cargo target")
-target = alias["targets"][0]
+expected_manifest = normalize(ROOT / ALIAS_PACKAGE / "Cargo.toml")
+if normalize(alias["manifest_path"]) != expected_manifest:
+    fail(f"alias manifest must be {expected_manifest}")
+
+targets = alias["targets"]
+if len(targets) != 1:
+    fail(f"alias must contain exactly one target, found {len(targets)}")
+target = targets[0]
 if target["kind"] != ["lib"] or target["crate_types"] != ["lib"]:
-    fail("alias's only target must be a normal library")
-if target["name"] != "openbimrl":
-    fail(f"alias target has unexpected name {target['name']!r}")
-
-source_path = normalized(target["src_path"])
-expected_source = normalized(ROOT / "openbimrl/src/lib.rs")
+    fail("alias target must be one ordinary library")
+if target.get("edition") != "2021":
+    fail("alias target edition must be 2021")
+for flag in ("doc", "doctest", "test"):
+    if target.get(flag) is not True:
+        fail(f"alias target must keep {flag}=true")
+if target.get("required-features", []) != []:
+    fail("alias target must not require features")
+if target["name"] != ALIAS_PACKAGE.replace("-", "_"):
+    fail(f"unexpected alias library target name {target['name']!r}")
+expected_source = normalize(ROOT / ALIAS_PACKAGE / "src/lib.rs")
+source_path = normalize(target["src_path"])
 if source_path != expected_source:
-    fail(f"alias library must be {expected_source}, got {source_path}")
-meaningful_lines = [
-    line.strip()
-    for line in source_path.read_text(encoding="utf-8").splitlines()
-    if line.strip() and not line.lstrip().startswith("//")
-]
-expected_reexport = "pub use openbim_openbimrl::*;"
-if meaningful_lines != [expected_reexport]:
-    fail(f"alias library must contain only `{expected_reexport}` apart from comments")
+    fail(f"alias library source must be {expected_source}, got {source_path}")
 
-if len(alias["dependencies"]) != 1:
-    fail(f"alias must have exactly one dependency, found {len(alias['dependencies'])}")
-dependency = alias["dependencies"][0]
-if dependency["name"] != CANONICAL_NAME or dependency.get("rename") is not None:
-    fail(f"alias's sole dependency must be unrenamed {CANONICAL_NAME}")
-if dependency.get("kind") is not None or dependency.get("optional"):
-    fail("canonical package must be a required normal dependency")
-expected_requirement = f"={canonical_version}"
-if dependency["req"] != expected_requirement:
-    fail(
-        f"canonical requirement must be {expected_requirement}, "
-        f"got {dependency['req']}"
-    )
-expected_path = normalized(ROOT / "openbim-openbimrl")
-if dependency.get("path") is None:
-    fail("canonical dependency must have a local path for workspace verification")
-if normalized(dependency["path"]) != expected_path:
-    fail(f"canonical dependency path must be {expected_path}")
+expected_tokens = ["pub", "use", CANONICAL_CRATE, "::", "*", ";"]
+tokens = rust_tokens(without_comments(source_path.read_text(encoding="utf-8")))
+if tokens != expected_tokens:
+    fail(f"alias source tokens must be exactly {expected_tokens!r}, got {tokens!r}")
 
-print(
-    f"alias purity: ok ({ALIAS_NAME} is an exact-version pure re-export of "
-    f"{CANONICAL_NAME} {canonical_version})"
+extra_sources = sorted(
+    path.relative_to(ROOT)
+    for path in (ROOT / ALIAS_PACKAGE).rglob("*.rs")
+    if normalize(path) != source_path
 )
+if extra_sources:
+    fail(f"alias contains unexpected Rust sources: {extra_sources}")
+
+dependencies = alias["dependencies"]
+if len(dependencies) != 1:
+    fail(f"alias must have exactly one dependency, found {len(dependencies)}")
+dependency = dependencies[0]
+if dependency["name"] != CANONICAL_PACKAGE or dependency.get("rename") is not None:
+    fail(f"sole dependency must be unrenamed {CANONICAL_PACKAGE}")
+expected_fields = {
+    "kind": None,
+    "optional": False,
+    "target": None,
+    "registry": None,
+    "source": None,
+    "uses_default_features": True,
+    "features": [],
+}
+for field, expected in expected_fields.items():
+    actual = dependency.get(field)
+    if actual != expected:
+        fail(f"canonical dependency field {field!r} must be {expected!r}, got {actual!r}")
+expected_requirement = f"={VERSION}"
+if dependency["req"] != expected_requirement:
+    fail(f"canonical requirement must be {expected_requirement}, got {dependency['req']}")
+expected_path = normalize(ROOT / CANONICAL_PACKAGE)
+if dependency.get("path") is None or normalize(dependency["path"]) != expected_path:
+    fail(f"canonical dependency path must resolve to {expected_path}")
+
+print(f"alias purity: {ALIAS_PACKAGE} is one unconditional exact-version pure re-export")

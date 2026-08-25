@@ -12,5 +12,6 @@ cargo clippy --workspace --all-targets --all-features -- -D warnings
 RUSTDOCFLAGS="-D warnings" cargo doc --workspace --all-features --no-deps
 scripts/check-alias-purity.sh
 scripts/test-alias-purity.sh
-cargo package -p openbim-openbimrl
-cargo package -p openbimrl
+python3 scripts/check-package-contents.py
+cargo package --locked -p openbim-openbimrl
+cargo package --locked -p openbimrl
