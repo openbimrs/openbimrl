@@ -26,4 +26,4 @@ Do not depend on both package names directly.
 
 ## License
 
-MIT
+AGPL-3.0-or-later

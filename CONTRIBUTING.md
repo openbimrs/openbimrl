@@ -35,3 +35,10 @@ CHANGELOG together when a user-visible contract changes.
 Keep changes narrowly scoped, explain capability implications, and include the
 commands used as evidence. Never present the reservation as an implemented
 technology or as standards-body work.
+
+## Licensing contributions
+
+Unless an explicitly signed agreement says otherwise, every contribution
+submitted to this repository is licensed under `AGPL-3.0-or-later`. Submit only
+work that you have the right to license. Identify third-party material and
+preserve its license, attribution, and provenance.

@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-EXPECTED = {'openbim-openbimrl': ['.cargo_vcs_info.json', 'AGENTS.md', 'Cargo.lock', 'Cargo.toml', 'Cargo.toml.orig', 'LICENSE', 'PLAN.md', 'README.md', 'src/lib.rs'], 'openbimrl': ['.cargo_vcs_info.json', 'AGENTS.md', 'Cargo.lock', 'Cargo.toml', 'Cargo.toml.orig', 'LICENSE', 'PLAN.md', 'README.md', 'src/lib.rs']}
+EXPECTED = {'openbim-openbimrl': ['.cargo_vcs_info.json', 'AGENTS.md', 'Cargo.lock', 'Cargo.toml', 'Cargo.toml.orig', 'LICENSE', 'LICENSES/MIT.txt', 'PLAN.md', 'README.md', 'src/lib.rs'], 'openbimrl': ['.cargo_vcs_info.json', 'AGENTS.md', 'Cargo.lock', 'Cargo.toml', 'Cargo.toml.orig', 'LICENSE', 'LICENSES/MIT.txt', 'PLAN.md', 'README.md', 'src/lib.rs']}
 
 errors: list[str] = []
 for package, expected in EXPECTED.items():

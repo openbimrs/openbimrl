@@ -8,6 +8,7 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Relicensed repository-authored work from MIT to `AGPL-3.0-or-later`; historical releases remain under their published MIT terms, and third-party material retains its own terms.
 - The steady-state release gate now fully packages the published `openbimrl`
   alias.
 - Alias purity now fails closed over Cargo dependency, feature, target, build,

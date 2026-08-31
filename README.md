@@ -76,5 +76,5 @@ purity, mutation probes, and complete package archives for both crates.
 
 ## Contributing and license
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md). Licensed under the MIT License; see
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Licensed under the AGPL-3.0-or-later License; see
 [`LICENSE`](LICENSE).

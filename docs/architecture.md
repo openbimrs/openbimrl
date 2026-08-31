@@ -42,7 +42,7 @@ capability documentation. None is claimed to exist now.
 ## Standalone release metadata
 
 Each publishable manifest explicitly declares package name, version, Rust 2021
-edition, MSRV 1.85, MIT license, author, repository, homepage, documentation,
+edition, MSRV 1.85, AGPL-3.0-or-later license, author, repository, homepage, documentation,
 README, description, keywords, category, and publish intent. The packages do
 not inherit release metadata from another workspace.
 

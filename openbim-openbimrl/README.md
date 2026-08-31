@@ -32,4 +32,4 @@ assert!(openbim_openbimrl::PACKAGE_STATUS.starts_with("RESERVED "));
 
 ## License
 
-MIT
+AGPL-3.0-or-later
