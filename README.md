@@ -4,7 +4,7 @@
 [![openbim-openbimrl](https://img.shields.io/crates/v/openbim-openbimrl.svg)](https://crates.io/crates/openbim-openbimrl)
 [![openbimrl](https://img.shields.io/crates/v/openbimrl.svg)](https://crates.io/crates/openbimrl)
 [![docs.rs](https://docs.rs/openbim-openbimrl/badge.svg)](https://docs.rs/openbim-openbimrl)
-[![MSRV](https://img.shields.io/badge/MSRV-1.85-blue)](https://www.rust-lang.org)
+[![MSRV](https://img.shields.io/badge/MSRV-1.99-blue)](https://www.rust-lang.org)
 
 This repository is a **RESERVED OpenBIM.rs namespace**. It preserves
 package architecture for the names `openbim-openbimrl` and `openbimrl`; it does
@@ -63,7 +63,7 @@ assert!(openbim_openbimrl::PACKAGE_STATUS.starts_with("RESERVED "));
 
 ## Development
 
-Rust `1.85.0` and Python `3.10` or newer are required.
+Rust `1.99.1` and Python `3.10` or newer are required.
 
 ```bash
 git clone https://github.com/openbimrs/openbimrl.git

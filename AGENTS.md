@@ -26,7 +26,7 @@ push or publish unless that action is separately and explicitly authorized.
 
 ## Boundaries
 
-- Both packages use Rust 2021, MSRV 1.85, version 0.1.0, and explicit metadata.
+- Both packages use Rust 2021, MSRV 1.99, version 0.1.0, and explicit metadata.
 - `openbim-openbimrl` is dependency-free and owns every public item.
 - `openbimrl/src/lib.rs` contains comments plus only
   `pub use openbim_openbimrl::*;`.
