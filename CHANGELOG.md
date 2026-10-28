@@ -6,10 +6,16 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-28
+
 ### Changed
 
+- **Licence:** `AGPL-3.0-or-later OR LicenseRef-Commercial` (was `MIT` in
+  0.1.0); a commercial licence is available from the copyright holder named in
+  `NOTICE`. See `LICENSING.md`. Historical releases remain under their
+  published MIT terms, and third-party material retains its own terms. Both
+  packages ship `LICENSE`, `NOTICE` and `LICENSES/LicenseRef-Commercial.txt`.
 - Raise MSRV to Rust 1.99.
-- Relicensed repository-authored work from MIT to `AGPL-3.0-or-later`; historical releases remain under their published MIT terms, and third-party material retains its own terms.
 - The steady-state release gate now fully packages the published `openbimrl`
   alias.
 - Alias purity now fails closed over Cargo dependency, feature, target, build,
@@ -31,5 +37,6 @@ project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   standards-body affiliation, or publication is claimed by this repository
   namespace.
 
+[0.1.1]: https://crates.io/crates/openbim-openbimrl/0.1.1
 [0.1.0]: https://crates.io/crates/openbim-openbimrl/0.1.0
 [canonical-crate]: https://crates.io/crates/openbim-openbimrl/0.1.0

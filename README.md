@@ -36,7 +36,7 @@ language, serializer, schema, conformance, or validation claim.
 
 Cargo does not provide publisher-side aliases on crates.io, so the two package
 records are modeled explicitly. The alias has one dependency, pinned to
-`=0.1.0`, and its source contains only:
+`=0.1.1`, and its source contains only:
 
 ```rust
 pub use openbim_openbimrl::*;
@@ -49,9 +49,9 @@ See [`docs/architecture.md`](docs/architecture.md) for the enforced boundary.
 Use either package name; do not depend on both directly:
 
 ```bash
-cargo add openbim-openbimrl@0.1.0
+cargo add openbim-openbimrl@0.1.1
 # or
-cargo add openbimrl@0.1.0
+cargo add openbimrl@0.1.1
 ```
 
 Both expose the same canonical item:
@@ -76,5 +76,5 @@ purity, mutation probes, and complete package archives for both crates.
 
 ## Contributing and license
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md). Licensed under the AGPL-3.0-or-later License; see
-[`LICENSE`](LICENSE).
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Dual-licensed `AGPL-3.0-or-later OR LicenseRef-Commercial`; see
+[`LICENSING.md`](LICENSING.md).

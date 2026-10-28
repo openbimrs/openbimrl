@@ -11,7 +11,7 @@ is inferred from repository or package existence.
 ## Package identity
 
 ```text
-openbimrl  -- exact =0.1.0 dependency -->  openbim-openbimrl
+openbimrl  -- exact =0.1.1 dependency -->  openbim-openbimrl
 (alias; no items)                          (minimal status API)
 ```
 
@@ -42,7 +42,7 @@ capability documentation. None is claimed to exist now.
 ## Standalone release metadata
 
 Each publishable manifest explicitly declares package name, version, Rust 2021
-edition, MSRV 1.99, AGPL-3.0-or-later license, author, repository, homepage, documentation,
+edition, MSRV 1.99, `AGPL-3.0-or-later OR LicenseRef-Commercial` license, author, repository, homepage, documentation,
 README, description, keywords, category, and publish intent. The packages do
 not inherit release metadata from another workspace.
 

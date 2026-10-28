@@ -10,7 +10,7 @@ Run `./scripts/gate.sh`; trust process exit codes.
 ## Conventions
 
 - Rust 2021; MSRV 1.99; pinned local/CI toolchain 1.99.1.
-- AGPL-3.0-or-later; explicit package metadata; no workspace-inherited release metadata.
+- `AGPL-3.0-or-later OR LicenseRef-Commercial`; explicit package metadata; no workspace-inherited release metadata.
 - `openbim-openbimrl` owns the minimal status API.
 - `openbimrl` is an exact-version pure re-export and defines nothing.
 - No authoritative specification or standards-body affiliation is claimed.
