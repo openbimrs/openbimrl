@@ -17,8 +17,7 @@ any standards body or organization.
 
 ```bash
 ./scripts/gate.sh
-cargo package -p openbim-openbimrl
-cargo package -p openbimrl
+cargo package -p openbim-openbimrl -p openbimrl
 ```
 
 The canonical package must be released before its exact-version alias. Never
@@ -26,10 +25,10 @@ push or publish unless that action is separately and explicitly authorized.
 
 ## Boundaries
 
-- Both packages use Rust 2021, MSRV 1.99, version 0.1.0, and explicit metadata.
+- Both packages use Rust 2021, MSRV 1.99, version 0.1.1, and explicit metadata.
 - `openbim-openbimrl` is dependency-free and owns every public item.
 - `openbimrl/src/lib.rs` contains comments plus only
   `pub use openbim_openbimrl::*;`.
-- The alias depends only on exact version `=0.1.0` of the canonical package.
+- The alias depends only on exact version `=0.1.1` of the canonical package.
 - Keep standards and other third-party artifacts out of the repository.
 - Capability documentation must distinguish reservation from implementation.

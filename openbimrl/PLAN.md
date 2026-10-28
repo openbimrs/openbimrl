@@ -5,7 +5,7 @@ Last updated: 2026-08-25
 
 ## Permanent boundary
 
-- [x] Depend only on `openbim-openbimrl = "=0.1.0"`.
+- [x] Depend only on `openbim-openbimrl = "=0.1.1"`.
 - [x] Re-export the canonical crate without defining an item.
 - [x] Enforce the boundary with the semantic alias-purity checker.
 - [x] Verified the complete alias package after the exact canonical release

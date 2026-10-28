@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 ALIAS_PACKAGE = "openbimrl"
 CANONICAL_PACKAGE = "openbim-openbimrl"
 CANONICAL_CRATE = "openbim_openbimrl"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 
 def fail(message: str) -> NoReturn:

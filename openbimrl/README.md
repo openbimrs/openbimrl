@@ -15,7 +15,7 @@ parser, language, schema, validation, conformance, or standards-body claim.
 Install the short alias:
 
 ```bash
-cargo add openbimrl@0.1.0
+cargo add openbimrl@0.1.1
 ```
 
 ```rust
@@ -26,4 +26,5 @@ Do not depend on both package names directly.
 
 ## License
 
-AGPL-3.0-or-later
+`AGPL-3.0-or-later OR LicenseRef-Commercial`; a commercial licence is
+available from the copyright holder named in `NOTICE`.
