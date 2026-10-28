@@ -20,8 +20,10 @@ any standards body or organization.
 cargo package -p openbim-openbimrl -p openbimrl
 ```
 
-The canonical package must be released before its exact-version alias. Never
-push or publish unless that action is separately and explicitly authorized.
+The canonical package must be released before its exact-version alias. Releases
+are published only by `.github/workflows/release.yml` (crates.io trusted
+publishing) when a `v<version>` tag is pushed. Never push or tag unless that
+action is separately and explicitly authorized.
 
 ## Boundaries
 
